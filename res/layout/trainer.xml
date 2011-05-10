@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/background"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="30dip"
+    >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dip"
+    android:layout_gravity="center">
+<TextView  
+	android:id="@+id/word_to_translate"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/word_to_translate"
+    android:padding="20dip"
+    android:layout_gravity="center"
+    android:textSize="25sp"
+    />
+    
+<Button
+	android:id="@+id/answer_1_button"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:text="@string/answer_1_label" 
+	android:padding="20dip"
+	android:layout_marginBottom="10dip" />
+<Button
+	android:id="@+id/answer_2_button"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:text="@string/answer_2_label"
+	android:padding="20dip"
+	android:layout_marginBottom="10dip" />
+<Button
+	android:id="@+id/answer_3_button"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:text="@string/answer_3_label"
+	android:padding="20dip" />
+	
+	<TextView  
+	android:id="@+id/false_label"
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content" 
+    android:text="@string/false_label"
+    android:padding="10dip"
+    android:layout_gravity="center"
+    android:textSize="15sp"
+    android:textColor="@color/red"
+    style="@style/bold"
+    />
+<Button
+	android:id="@+id/stop_button"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:text="@string/stop_label" />
+</LinearLayout>
+</LinearLayout>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<!-- WELCOME_SCREEN -->
+    <string name="app_name">Vocabulary Trainer</string>
+    <string name="welcome_title">Willkommen</string>
+    <string name="options_label">Options</string>
+    <string name="new_game_label">Start</string>
+    <string name="about_label">About</string>
+    <string name="exit_label">Exit</string>
+    
+    
+   
+    <string name="about_title">About Vocabulary Trainer</string>
+    
+    <string name="about_text">
+    	This app was design solely for <b>me</b>.
+    	This app has been created in order to help me
+    	memorize english vocabulary in a fun way. 
+    </string>
+    
+    <string name="trainer_label">What a fun way to learn languages</string>
+    <string name="word_to_translate"></string>
+    <string name="answer_1_label"></string>
+    <string name="answer_2_label"></string>
+    <string name="answer_3_label"></string>
+    <string name="stop_label">Stop</string>
+    <string name="false_label"></string>
+    
+    <!-- OPTIONS_SCREEN -->
+    <string name="options_title">Options</string>
+    <string name="reset_guessed_label">Reset Guessed</string>
+    <string name="update_db_label">Update from XML</string>
+    <string name="reset_db_label">Reset Database</string>
+    <string name="go_to_main_menu_label">Back</string>
+    
+    <!-- CONFIRM_RESET_DB_SCREEN -->
+    <string name="confirm_reset_db_message">Reset database 	irreversibly?</string>
+    <string name="confirm_yes">Yes</string>
+    <string name="confirm_no">No</string>
+</resources>
