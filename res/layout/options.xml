@@ -22,31 +22,21 @@
 		   
 		<Button
 			android:id="@+id/update_db"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
 			android:text="@string/update_db_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip" />
+			style="@style/buttonStyle" />
 		<Button
 			android:id="@+id/reset_guessed_button"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
 			android:text="@string/reset_guessed_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip" />
+			style="@style/buttonStyle" />
+			
 		<Button
 			android:id="@+id/reset_db"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
 			android:text="@string/reset_db_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip"  />
+			style="@style/buttonStyle" />
+			
 		<Button
 			android:id="@+id/go_to_main_menu"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
 			android:text="@string/go_to_main_menu_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip"  />
+			style="@style/buttonStyle" />
 	</LinearLayout>
 </LinearLayout>

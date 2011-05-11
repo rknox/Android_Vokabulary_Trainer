@@ -3,4 +3,22 @@
 	<style name="bold" parent="android:Theme">
 		<item name="android:textStyle">bold</item>
 	</style>
+	<style name="buttonStyle" parent="@android:style/Widget.Button">
+		<item name="android:layout_width">200dip</item>
+		<item name="android:textColor">#000</item>
+		<item name="android:layout_height">50dip</item>
+		<item name="android:padding">10dip</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:layout_marginBottom">10dip</item>
+	</style>
+	<style parent="@android:style/Widget.Button" name="ingameButton">
+		<item name="android:layout_width">150dip</item>
+		<item name="android:textColor">#000</item>
+		<item name="android:layout_height">50dip</item>
+		<item name="android:padding">5dip</item>
+		<item name="android:gravity">center</item>
+		<item name="android:layout_gravity">center_horizontal</item>
+		<item name="android:layout_marginBottom">5dip</item>
+	</style>
 </resources>

@@ -53,10 +53,13 @@ public class Options extends Activity implements OnClickListener {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		Bundle bundle = data.getExtras();
-		pathToXML = bundle.getString("path");
-		int rows = new TrainerData(this).updateDb(pathToXML);
-		String notify = "Inserted " + rows + " new vocabularies";
-		Tools.showToast(this, notify);
+		if(data != null){
+			Bundle bundle = data.getExtras();
+			pathToXML = bundle.getString("path");
+			int rows = new TrainerData(this).updateDb(pathToXML);
+			String notify = "Inserted " + rows + " new vocabularies";
+			Tools.showToast(this, notify);
+		}
 	}
+	
 }

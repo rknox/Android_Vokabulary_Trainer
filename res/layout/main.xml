@@ -20,33 +20,22 @@
 		    android:layout_gravity="center"
 		    android:textSize="25sp" />
 		<Button
+			style="@style/buttonStyle"
 			android:id="@+id/new_game_button"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:text="@string/new_game_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip" />
+			android:text="@string/new_game_label" />
+
 		<Button
+			style="@style/buttonStyle"
 			android:id="@+id/options_button"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:text="@string/options_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip" /> 
+			android:text="@string/options_label" />
 		<Button
+			style="@style/buttonStyle"
 			android:id="@+id/about_button"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:text="@string/about_label"
-			android:padding="20dip"
-			android:layout_marginBottom="10dip" />
+			android:text="@string/about_label" />
 		<Button
+			style="@style/buttonStyle"	
 			android:id="@+id/exit_button"
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:text="@string/exit_label" 
-			android:padding="20dip"
-			android:layout_marginBottom="10dip" />
+			android:text="@string/exit_label" /> 
 
 	</LinearLayout>
 </LinearLayout>

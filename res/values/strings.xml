@@ -24,6 +24,7 @@
     <string name="answer_1_label"></string>
     <string name="answer_2_label"></string>
     <string name="answer_3_label"></string>
+    <string name="answer_4_label"></string>
     <string name="stop_label">Stop</string>
     <string name="false_label"></string>
     

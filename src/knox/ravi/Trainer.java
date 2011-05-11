@@ -20,6 +20,7 @@ public class Trainer extends Activity implements OnClickListener {
 	private Button answerButton1;
 	private Button answerButton2;
 	private Button answerButton3;
+	private Button answerButton4;
 	private Button stopButton;
 	
 	private Vocable random;
@@ -28,8 +29,7 @@ public class Trainer extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trainer);
-		Vocable voc = new Vocable();
-		vocables = voc.getVocables(this);
+		vocables = new Vocable().getVocables(this);
 		
 		text = (TextView) findViewById(R.id.word_to_translate);
 		errorLabel = (TextView) findViewById(R.id.false_label);
@@ -40,6 +40,8 @@ public class Trainer extends Activity implements OnClickListener {
 		answerButton2.setOnClickListener(this);
 		answerButton3 = (Button) findViewById(R.id.answer_3_button);
 		answerButton3.setOnClickListener(this);
+		answerButton4 = (Button) findViewById(R.id.answer_4_button);
+		answerButton4.setOnClickListener(this);
 		stopButton = (Button) findViewById(R.id.stop_button);
 		stopButton.setOnClickListener(this);
 
@@ -52,12 +54,12 @@ public class Trainer extends Activity implements OnClickListener {
 	 */
 	private void initText() {
 		Log.d(TAG, "Initializing UI-text");
-		Button[] answerButtons = { answerButton1, answerButton2, answerButton3 };
+		Button[] answerButtons = { answerButton1, answerButton2, answerButton3, answerButton4 };
 		random = vocables.get((int) (Math.random() * vocables.size()));
 		text.setText(random.getEnglish());
-		int randomButton = (int) (Math.random() * 3);
-		Log.d(TAG, "Randomnumber: " + random + "Randobutton: " + randomButton);
-		for (int i = 0; i <= 2; i++) {
+		int randomButton = (int) (Math.random() * 4);
+		Log.d(TAG, "Randomnumber: " + random + " Randombutton: " + randomButton);
+		for (int i = 0; i <= 3; i++) {
 			if (i == randomButton) {		
 				answerButtons[i].setText(random.getGerman());
 			} 
@@ -80,6 +82,9 @@ public class Trainer extends Activity implements OnClickListener {
 			case R.id.answer_3_button:
 				check(random, 2);
 			break;
+			case R.id.answer_4_button:
+				check(random, 3);
+				break;
 			case R.id.stop_button:
 				finish();
 		}
@@ -92,7 +97,7 @@ public class Trainer extends Activity implements OnClickListener {
 
 	private void check(Vocable vocable, int i) {
 		
-		Button[] answerButtons = { answerButton1, answerButton2, answerButton3 };
+		Button[] answerButtons = { answerButton1, answerButton2, answerButton3, answerButton4 };
 		Log.d(TAG, "Checking answer..." + vocable.getGerman() + " - " + answerButtons[i].getText());
 		if (vocable.getGerman().equals(answerButtons[i].getText())) {
 			vocable.increaseGuessed(vocable, this);
