@@ -6,8 +6,6 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
-import android.os.Environment;
-
 public class XMLHandler {
 
 	public static Document getXMLFile(String filename) throws DocumentException{

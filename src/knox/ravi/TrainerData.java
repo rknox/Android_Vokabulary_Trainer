@@ -7,7 +7,6 @@ import static knox.ravi.Constants.GUESSED_CONSECUTIVELY;
 import static knox.ravi.Constants.TABLE_NAME;
 import static knox.ravi.Constants.TAG;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,20 +14,13 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 
-import filechooser.FileChooser;
-
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.sax.StartElementListener;
-import android.text.InputFilter.LengthFilter;
 import android.util.Log;
-import android.widget.Toast;
 
-public class TrainerData extends SQLiteOpenHelper {
+public class TrainerData extends SQLiteOpenHelper{
 
 	private static final int DATABASE_VERSION = 6;
 	private static final String DATABASE_NAME = "vocabulary_trainer.db";
@@ -56,10 +48,12 @@ public class TrainerData extends SQLiteOpenHelper {
 		onCreate(db);
 	}
 
-	public int updateDb(String path) {
+	@SuppressWarnings("unchecked")
+	public int updateDb(String path, List<Vocable> vocables) {
 		/**
 		 * TODO check for existing vocables in database
 		 */
+//		List<Vocable> allVocs  = new Vocable().getVocables();
 		ContentValues values = new ContentValues();
 		int rowCount = 0;
 		try {
@@ -68,9 +62,7 @@ public class TrainerData extends SQLiteOpenHelper {
 			Element root = doc.getRootElement();
 			String german = "";
 			String english = "";
-			List<Vocable> vocables = new Vocable().getVocableList();
-			for (Iterator<Element> i = root.elementIterator("vocable"); i
-					.hasNext();) {
+			for (Iterator<Element> i = root.elementIterator("vocable"); i.hasNext();) {
 				Element e = i.next();
 				for (Iterator<Element> j = e.elementIterator(); j.hasNext();) {
 					Element element = j.next();
@@ -86,6 +78,7 @@ public class TrainerData extends SQLiteOpenHelper {
 				values.put(GERMAN, german);
 				values.put(ENGLISH, english);
 				values.put(GUESSED_CONSECUTIVELY, 0);
+//				check(allVocs, new Vocable(german, english));
 				persistValues(values);
 				Log.d(TAG, german + "---" + english);
 				rowCount++;
@@ -98,6 +91,11 @@ public class TrainerData extends SQLiteOpenHelper {
 
 		Log.d(TAG, "Updated Database");
 		return rowCount;
+	}
+
+	private void check(List<Vocable> list, Vocable vocable) {
+		
+		
 	}
 
 	public static void resetAllGuessed(Context context) {
@@ -118,6 +116,9 @@ public class TrainerData extends SQLiteOpenHelper {
 		Log.d(TAG, "Persisted Values");
 	}
 	
+	public SQLiteDatabase getReadableSQLiteDatabase(){
+		return getReadableDatabase();
+	}
 	public static void resetDb(Context context){
 		getWritableDatabaseInstance(context).delete(TABLE_NAME, null, null);
 		Log.d(TAG, "Deleted all records");

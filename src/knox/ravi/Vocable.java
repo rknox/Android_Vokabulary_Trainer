@@ -4,14 +4,14 @@ import static android.provider.BaseColumns._ID;
 import static knox.ravi.Constants.ENGLISH;
 import static knox.ravi.Constants.GERMAN;
 import static knox.ravi.Constants.GUESSED_CONSECUTIVELY;
+import static knox.ravi.Constants.MAX_GUESSED_CONS;
 import static knox.ravi.Constants.TABLE_NAME;
 import static knox.ravi.Constants.TAG;
-import static knox.ravi.Constants.MAX_GUESSED_CONS;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -23,11 +23,8 @@ public class Vocable extends Activity {
 	private String english;
 	private int guessed;
 	private int id;
-	private static List<Vocable> vocables = new ArrayList<Vocable>();
-	private TrainerData data;
 	private static String[] FROM = { _ID, GERMAN, ENGLISH,
 			GUESSED_CONSECUTIVELY };
-	
 
 	public Vocable() {
 
@@ -92,33 +89,32 @@ public class Vocable extends Activity {
 	}
 
 	/**
-	 * @param guessed the guessed to set
+	 * @param guessed
+	 *            the guessed to set
 	 */
 	public void setGuessed(int guessed) {
 		this.guessed = guessed;
 	}
 
 	public List<Vocable> getVocableList() {
-		vocables.add(new Vocable("Hallo", "Hello"));
-//		vocables.add(new Vocable("Tisch", "Table"));
-//		vocables.add(new Vocable("Wasser", "Water"));
-//		vocables.add(new Vocable("Pflanze", "Plant"));
-//		vocables.add(new Vocable("Messer", "Knife"));
-//		vocables.add(new Vocable("Stift", "Pen"));
-//		vocables.add(new Vocable("Stein", "Stone"));
-//		vocables.add(new Vocable("Münze", "Coin"));
-//		vocables.add(new Vocable("Bild", "Picture"));
-//		vocables.add(new Vocable("Papier", "Paper"));
-		return vocables;
+		
+		return getVocables(this);
 	}
 
+	/**
+	 * Returns all Vocables
+	 * @param context
+	 * @return
+	 */
 	public List<Vocable> getVocables(Context context) {
-		data = new TrainerData(context);
 		List<Vocable> list = new ArrayList<Vocable>();
 		Cursor cursor;
+		TrainerData data = new TrainerData(context);
+		SQLiteDatabase db = data.getReadableDatabase();
 		try {
-			SQLiteDatabase db = data.getReadableDatabase();
-			cursor = db.query(TABLE_NAME, FROM, GUESSED_CONSECUTIVELY + " < " + MAX_GUESSED_CONS, null, null, null, null);
+			
+			cursor = db.query(TABLE_NAME, FROM, GUESSED_CONSECUTIVELY + " < "
+					+ MAX_GUESSED_CONS, null, null, null, null);
 			startManagingCursor(cursor);
 
 			while (cursor.moveToNext()) {
@@ -127,18 +123,15 @@ public class Vocable extends Activity {
 				Log.d(TAG, "Added Vocable to list: " + cursor.getInt(0));
 			}
 		} finally {
-			data.close();
-
+			db.close();
 		}
 		list = checkListSize(list);
-		
 		return list;
 	}
 
-	
-
 	public static List<Vocable> checkListSize(List<Vocable> list) {
-		if(list.size()<1){
+		if (list.size() < 1) {
+			list.add(new Vocable("done", "done"));
 			list.add(new Vocable("done", "done"));
 			list.add(new Vocable("done", "done"));
 			list.add(new Vocable("done", "done"));
@@ -146,27 +139,26 @@ public class Vocable extends Activity {
 		return list;
 	}
 
+	// TODO Execute proper db.update() method that comes with SQLitehelper combine with Trainerdata.resetAllGuessed?!
 	public void increaseGuessed(Vocable vocable, Context context) {
 		int guessed = vocable.getGuessed();
 		guessed++;
 		SQLiteDatabase db = TrainerData.getWritableDatabaseInstance(context);
-		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY + " = " + guessed + " WHERE " + _ID + " = " + vocable.getId() + ";" ;
+		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY
+				+ " = " + guessed + " WHERE " + _ID + " = " + vocable.getId()
+				+ ";";
 		db.execSQL(sql);
 		db.close();
 		vocable.setGuessed(guessed);
 	}
-
+	// TODO Execute proper db.update() method that comes with SQLitehelper
 	public void resetGuessed(Vocable vocable, Context context) {
 		SQLiteDatabase db = TrainerData.getWritableDatabaseInstance(context);
-		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY + " = 0 WHERE " + _ID + " = " + vocable.getId() + ";" ;
+		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY
+				+ " = 0 WHERE " + _ID + " = " + vocable.getId() + ";";
 		db.execSQL(sql);
 		db.close();
 		vocable.setGuessed(0);
 		Log.d(TAG, "Reseted guessed for : " + vocable.getGerman());
-	}
-	
-	private SQLiteDatabase getWritableDatabaseInstance(Context context){
-		data = new TrainerData(context);
-		return data.getWritableDatabase();
 	}
 }

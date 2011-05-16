@@ -7,12 +7,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Toast;
 
 public class Options extends Activity implements OnClickListener {
 
 	private Intent intent;
-	private String pathToXML;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,13 +51,13 @@ public class Options extends Activity implements OnClickListener {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if(data != null){
+		if (data != null) {
 			Bundle bundle = data.getExtras();
-			pathToXML = bundle.getString("path");
-			int rows = new TrainerData(this).updateDb(pathToXML);
+			String pathToXML = bundle.getString("path");
+			int rows = new TrainerData(this).updateDb(pathToXML, new Vocable().getVocables(this));
 			String notify = "Inserted " + rows + " new vocabularies";
 			Tools.showToast(this, notify);
 		}
 	}
-	
+
 }

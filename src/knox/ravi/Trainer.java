@@ -13,16 +13,12 @@ import android.widget.TextView;
 public class Trainer extends Activity implements OnClickListener {
 
 	private final static String TAG = "TRAINER";
-	
+
 	private List<Vocable> vocables;
 	private TextView text;
 	private TextView errorLabel;
-	private Button answerButton1;
-	private Button answerButton2;
-	private Button answerButton3;
-	private Button answerButton4;
-	private Button stopButton;
-	
+	private Button answerButton1, answerButton2, answerButton3, answerButton4,
+			stopButton;
 	private Vocable random;
 
 	@Override
@@ -30,10 +26,10 @@ public class Trainer extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trainer);
 		vocables = new Vocable().getVocables(this);
-		
+
 		text = (TextView) findViewById(R.id.word_to_translate);
 		errorLabel = (TextView) findViewById(R.id.false_label);
-		
+
 		answerButton1 = (Button) findViewById(R.id.answer_1_button);
 		answerButton1.setOnClickListener(this);
 		answerButton2 = (Button) findViewById(R.id.answer_2_button);
@@ -48,24 +44,24 @@ public class Trainer extends Activity implements OnClickListener {
 		initText();
 
 	}
-	
+
 	/**
 	 * Set Text on TextView and Buttons
 	 */
 	private void initText() {
 		Log.d(TAG, "Initializing UI-text");
-		Button[] answerButtons = { answerButton1, answerButton2, answerButton3, answerButton4 };
+		Button[] answerButtons = { answerButton1, answerButton2, answerButton3,
+				answerButton4 };
 		random = vocables.get((int) (Math.random() * vocables.size()));
 		text.setText(random.getEnglish());
 		int randomButton = (int) (Math.random() * 4);
-		Log.d(TAG, "Randomnumber: " + random + " Randombutton: " + randomButton);
 		for (int i = 0; i <= 3; i++) {
-			if (i == randomButton) {		
+			if (i == randomButton) {
 				answerButtons[i].setText(random.getGerman());
-			} 
-			else {
+			} else {
 				int randomNumber = (int) (Math.random() * vocables.size());
-				answerButtons[i].setText(vocables.get(randomNumber).getGerman());
+				answerButtons[i]
+						.setText(vocables.get(randomNumber).getGerman());
 			}
 		}
 		Log.d(TAG, "UI-text initialized...");
@@ -73,22 +69,22 @@ public class Trainer extends Activity implements OnClickListener {
 
 	public void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.answer_1_button:
-				check(random, 0);
+		case R.id.answer_1_button:
+			check(random, 0);
 			break;
-			case R.id.answer_2_button:
-				check(random, 1);
+		case R.id.answer_2_button:
+			check(random, 1);
 			break;
-			case R.id.answer_3_button:
-				check(random, 2);
+		case R.id.answer_3_button:
+			check(random, 2);
 			break;
-			case R.id.answer_4_button:
-				check(random, 3);
-				break;
-			case R.id.stop_button:
-				finish();
+		case R.id.answer_4_button:
+			check(random, 3);
+			break;
+		case R.id.stop_button:
+			finish();
 		}
-		if(random.getGuessed() > MAX_GUESSED_CONS){
+		if (random.getGuessed() > MAX_GUESSED_CONS) {
 			vocables.remove(random);
 			Vocable.checkListSize(vocables);
 			Log.d(TAG, "REMOVED " + random.getId() + " FROM LIST");
@@ -96,15 +92,15 @@ public class Trainer extends Activity implements OnClickListener {
 	}
 
 	private void check(Vocable vocable, int i) {
-		
-		Button[] answerButtons = { answerButton1, answerButton2, answerButton3, answerButton4 };
-		Log.d(TAG, "Checking answer..." + vocable.getGerman() + " - " + answerButtons[i].getText());
+		Button[] answerButtons = { answerButton1, answerButton2, answerButton3,
+				answerButton4 };
+		Log.d(TAG, "Checking answer..." + vocable.getGerman() + " - "
+				+ answerButtons[i].getText());
 		if (vocable.getGerman().equals(answerButtons[i].getText())) {
 			vocable.increaseGuessed(vocable, this);
 			initText();
 			errorLabel.setText("");
-		}
-		else{
+		} else {
 			errorLabel.setText("Wrong");
 			vocable.resetGuessed(vocable, this);
 		}
