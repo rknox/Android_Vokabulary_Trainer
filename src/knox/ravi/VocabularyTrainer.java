@@ -1,18 +1,21 @@
 package knox.ravi;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
 public class VocabularyTrainer extends Activity implements OnClickListener {
+	
+	private static Context instance;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		instance = getApplicationContext();
 		View continueButtion = findViewById(R.id.options_button);
 		continueButtion.setOnClickListener(this);
 		View startNewGameButton = findViewById(R.id.new_game_button);
@@ -42,5 +45,9 @@ public class VocabularyTrainer extends Activity implements OnClickListener {
 			finish();
 			break;
 		}
+	}
+	
+	public static Context getContext(){
+		return instance;
 	}
 }

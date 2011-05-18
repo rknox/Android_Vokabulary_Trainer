@@ -25,6 +25,8 @@ public class Options extends Activity implements OnClickListener {
 		resetDbButton.setOnClickListener(this);
 		View returnButton = findViewById(R.id.go_to_main_menu);
 		returnButton.setOnClickListener(this);
+		View writeXMLButton = findViewById(R.id.write_xml);
+		writeXMLButton.setOnClickListener(this);
 	}
 
 	public void onClick(View v) {
@@ -41,9 +43,11 @@ public class Options extends Activity implements OnClickListener {
 			startActivity(new Intent(this, ConfirmDbReset.class));
 			break;
 		case R.id.go_to_main_menu:
-			Log.d(TAG, "Returning to main menu");
 			intent = new Intent(this, VocabularyTrainer.class);
 			startActivity(intent);
+			break;
+		case R.id.write_xml:
+			TrainerData.writeXML();
 			break;
 		}
 	}

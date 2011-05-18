@@ -25,6 +25,10 @@
 			android:text="@string/update_db_label"
 			style="@style/buttonStyle" />
 		<Button
+			android:id="@+id/write_xml"
+			android:text="@string/write_xml"
+			style="@style/buttonStyle" />
+		<Button
 			android:id="@+id/reset_guessed_button"
 			android:text="@string/reset_guessed_label"
 			style="@style/buttonStyle" />

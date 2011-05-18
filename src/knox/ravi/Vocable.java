@@ -108,7 +108,7 @@ public class Vocable extends Activity {
 	 */
 	public List<Vocable> getVocables(Context context) {
 		List<Vocable> list = new ArrayList<Vocable>();
-		Cursor cursor;
+		Cursor cursor = null;
 		TrainerData data = new TrainerData(context);
 		SQLiteDatabase db = data.getReadableDatabase();
 		try {
@@ -123,6 +123,7 @@ public class Vocable extends Activity {
 				Log.d(TAG, "Added Vocable to list: " + cursor.getInt(0));
 			}
 		} finally {
+			cursor.close();
 			db.close();
 		}
 		list = checkListSize(list);

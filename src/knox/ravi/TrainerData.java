@@ -124,4 +124,10 @@ public class TrainerData extends SQLiteOpenHelper{
 		Log.d(TAG, "Deleted all records");
 	}
 
+	public static void writeXML() {
+		//create static getVocables() method
+		List<Vocable> vocables = new Vocable().getVocables(VocabularyTrainer.getContext());
+		new XMLHandler().writeList(vocables);
+	}
+
 }

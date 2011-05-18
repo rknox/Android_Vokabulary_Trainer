@@ -22,23 +22,24 @@ public final class R {
         public static final int TextView02=0x7f070005;
         public static final int about_button=0x7f070008;
         public static final int about_content=0x7f070000;
-        public static final int answer_1_button=0x7f070010;
-        public static final int answer_2_button=0x7f070011;
-        public static final int answer_3_button=0x7f070012;
-        public static final int answer_4_button=0x7f070013;
+        public static final int answer_1_button=0x7f070011;
+        public static final int answer_2_button=0x7f070012;
+        public static final int answer_3_button=0x7f070013;
+        public static final int answer_4_button=0x7f070014;
         public static final int confirm_no=0x7f070002;
         public static final int confirm_reset_db=0x7f070001;
         public static final int confirm_yes=0x7f070003;
         public static final int exit_button=0x7f070009;
-        public static final int false_label=0x7f07000f;
-        public static final int go_to_main_menu=0x7f07000d;
+        public static final int false_label=0x7f070010;
+        public static final int go_to_main_menu=0x7f07000e;
         public static final int new_game_button=0x7f070006;
         public static final int options_button=0x7f070007;
-        public static final int reset_db=0x7f07000c;
-        public static final int reset_guessed_button=0x7f07000b;
-        public static final int stop_button=0x7f070014;
+        public static final int reset_db=0x7f07000d;
+        public static final int reset_guessed_button=0x7f07000c;
+        public static final int stop_button=0x7f070015;
         public static final int update_db=0x7f07000a;
-        public static final int word_to_translate=0x7f07000e;
+        public static final int word_to_translate=0x7f07000f;
+        public static final int write_xml=0x7f07000b;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -59,11 +60,11 @@ public final class R {
         /**  WELCOME_SCREEN 
          */
         public static final int app_name=0x7f050000;
-        public static final int confirm_no=0x7f050017;
+        public static final int confirm_no=0x7f050018;
         /**  CONFIRM_RESET_DB_SCREEN 
          */
-        public static final int confirm_reset_db_message=0x7f050015;
-        public static final int confirm_yes=0x7f050016;
+        public static final int confirm_reset_db_message=0x7f050016;
+        public static final int confirm_yes=0x7f050017;
         public static final int exit_label=0x7f050005;
         public static final int false_label=0x7f05000f;
         public static final int go_to_main_menu_label=0x7f050014;
@@ -79,6 +80,7 @@ public final class R {
         public static final int update_db_label=0x7f050012;
         public static final int welcome_title=0x7f050001;
         public static final int word_to_translate=0x7f050009;
+        public static final int write_xml=0x7f050015;
     }
     public static final class style {
         public static final int bold=0x7f060000;

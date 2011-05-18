@@ -34,6 +34,7 @@
     <string name="update_db_label">Update from XML</string>
     <string name="reset_db_label">Reset Database</string>
     <string name="go_to_main_menu_label">Back</string>
+    <string name="write_xml">Write to XML</string>
     
     <!-- CONFIRM_RESET_DB_SCREEN -->
     <string name="confirm_reset_db_message">Reset database 	irreversibly?</string>
