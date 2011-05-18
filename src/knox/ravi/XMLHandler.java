@@ -14,7 +14,6 @@ import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 import org.xmlpull.v1.XmlSerializer;
 
-import android.app.Activity;
 import android.os.Environment;
 import android.util.Log;
 import android.util.Xml;
@@ -30,7 +29,7 @@ public class XMLHandler {
 	}
 
 	public void writeList(List<Vocable> vocables) {
-		  File newxmlfile = new File(Environment.getExternalStorageDirectory() + "/dropbox/" + XML_FILE_NAME);
+		  File newxmlfile = new File(Environment.getExternalStorageDirectory() + "/" + XML_FILE_NAME);
 		  try {
 			Log.d(TAG, newxmlfile.getCanonicalPath());
 		} catch (IOException e1) {

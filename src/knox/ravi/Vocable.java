@@ -96,17 +96,14 @@ public class Vocable extends Activity {
 		this.guessed = guessed;
 	}
 
-	public List<Vocable> getVocableList() {
-		
-		return getVocables(this);
-	}
+
 
 	/**
 	 * Returns all Vocables
 	 * @param context
 	 * @return
 	 */
-	public List<Vocable> getVocables(Context context) {
+	public List<Vocable> getVocables(Context context, boolean withPlaceholder) {
 		List<Vocable> list = new ArrayList<Vocable>();
 		Cursor cursor = null;
 		TrainerData data = new TrainerData(context);
@@ -114,7 +111,7 @@ public class Vocable extends Activity {
 		try {
 			
 			cursor = db.query(TABLE_NAME, FROM, GUESSED_CONSECUTIVELY + " < "
-					+ MAX_GUESSED_CONS, null, null, null, null);
+					+ MAX_GUESSED_CONS, null, null, null, "german");
 			startManagingCursor(cursor);
 
 			while (cursor.moveToNext()) {
@@ -126,7 +123,7 @@ public class Vocable extends Activity {
 			cursor.close();
 			db.close();
 		}
-		list = checkListSize(list);
+		if(withPlaceholder){list = checkListSize(list);}
 		return list;
 	}
 

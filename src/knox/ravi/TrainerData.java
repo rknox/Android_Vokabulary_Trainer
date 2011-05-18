@@ -7,6 +7,7 @@ import static knox.ravi.Constants.GUESSED_CONSECUTIVELY;
 import static knox.ravi.Constants.TABLE_NAME;
 import static knox.ravi.Constants.TAG;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -49,59 +50,57 @@ public class TrainerData extends SQLiteOpenHelper{
 	}
 
 	@SuppressWarnings("unchecked")
-	public int updateDb(String path, List<Vocable> vocables) {
+	public int updateDb(String path) {
 		/**
 		 * TODO check for existing vocables in database
 		 */
-//		List<Vocable> allVocs  = new Vocable().getVocables();
 		ContentValues values = new ContentValues();
 		int rowCount = 0;
+		List<Vocable> newVocables = new ArrayList<Vocable>();
 		try {
 			Log.d(TAG, "Try updating from XML file");	
 			Document doc = XMLHandler.getXMLFile(path);
 			Element root = doc.getRootElement();
 			String german = "";
 			String english = "";
+
 			for (Iterator<Element> i = root.elementIterator("vocable"); i.hasNext();) {
 				Element e = i.next();
 				for (Iterator<Element> j = e.elementIterator(); j.hasNext();) {
 					Element element = j.next();
-					if (!vocables.contains(element)) {
 						if (element.getName().equals("german")) {
 							german = element.getText();
 						}
 						if (element.getName().equals("english")) {
 							english = element.getText();
 						}
-					}
 				}
-				values.put(GERMAN, german);
-				values.put(ENGLISH, english);
+				newVocables.add(new Vocable(german, english, 0));
+			}
+			newVocables = removeDuplicate(newVocables);
+			
+			for (Vocable vocable : newVocables) {
+				values.put(GERMAN, vocable.getGerman());
+				values.put(ENGLISH, vocable.getEnglish());
 				values.put(GUESSED_CONSECUTIVELY, 0);
-//				check(allVocs, new Vocable(german, english));
 				persistValues(values);
 				Log.d(TAG, german + "---" + english);
 				rowCount++;
 			}
-
 		} catch (DocumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		Log.d(TAG, "Updated Database");
 		return rowCount;
-	}
-
-	private void check(List<Vocable> list, Vocable vocable) {
-		
-		
 	}
 
 	public static void resetAllGuessed(Context context) {
 		ContentValues cv = new ContentValues();
 		cv.put(GUESSED_CONSECUTIVELY, 0);
-		getWritableDatabaseInstance(context).update(TABLE_NAME, cv, null, null);
+		SQLiteDatabase db = getWritableDatabaseInstance(context);
+		db.update(TABLE_NAME, cv, null, null);
+		db.close();
 		Log.d(TAG, "Reseted field: 'guessed' on all Vocables");
 	}
 
@@ -120,14 +119,34 @@ public class TrainerData extends SQLiteOpenHelper{
 		return getReadableDatabase();
 	}
 	public static void resetDb(Context context){
-		getWritableDatabaseInstance(context).delete(TABLE_NAME, null, null);
+		SQLiteDatabase db = getWritableDatabaseInstance(context);
+		db.delete(TABLE_NAME, null, null);
+		db.close();
+		Tools.showToast(VocabularyTrainer.getContext(), "Reseted Database");
 		Log.d(TAG, "Deleted all records");
 	}
 
 	public static void writeXML() {
-		//create static getVocables() method
-		List<Vocable> vocables = new Vocable().getVocables(VocabularyTrainer.getContext());
+		//TODO create static getVocables() method?
+		List<Vocable> vocables = new Vocable().getVocables(VocabularyTrainer.getContext(), false);
 		new XMLHandler().writeList(vocables);
 	}
 
+	//TODO Improve performance, watch out for ConcurrentModificationException
+	public List<Vocable> removeDuplicate(List<Vocable> vocables){
+		List<Vocable> existing = new Vocable().getVocables(VocabularyTrainer.getContext(), false);
+		List<Vocable> returnList = new ArrayList<Vocable>();
+		List<Vocable> temp = vocables;
+		boolean add;
+		for (Vocable vocable : temp) {
+			add = true;
+			for (Vocable exist : existing) {
+				if(vocable.getGerman().equalsIgnoreCase(exist.getGerman())){
+					add = false;
+				}
+			}
+			if(add){returnList.add(new Vocable(vocable.getGerman(), vocable.getEnglish()));};
+		}
+		return returnList;
+	}
 }

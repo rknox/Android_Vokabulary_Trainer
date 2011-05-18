@@ -1,10 +1,8 @@
 package knox.ravi;
 
-import static knox.ravi.Constants.TAG;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -58,7 +56,7 @@ public class Options extends Activity implements OnClickListener {
 		if (data != null) {
 			Bundle bundle = data.getExtras();
 			String pathToXML = bundle.getString("path");
-			int rows = new TrainerData(this).updateDb(pathToXML, new Vocable().getVocables(this));
+			int rows = new TrainerData(this).updateDb(pathToXML);
 			String notify = "Inserted " + rows + " new vocabularies";
 			Tools.showToast(this, notify);
 		}

@@ -25,7 +25,7 @@ public class Trainer extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trainer);
-		vocables = new Vocable().getVocables(this);
+		vocables = new Vocable().getVocables(this, true);
 
 		text = (TextView) findViewById(R.id.word_to_translate);
 		errorLabel = (TextView) findViewById(R.id.false_label);
