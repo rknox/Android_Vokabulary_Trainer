@@ -4,7 +4,6 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-
     >
 	<LinearLayout
 	    android:orientation="vertical"
@@ -18,22 +17,15 @@
 		    android:layout_width="fill_parent" 
 		    android:layout_height="wrap_content" 
 		    android:text="@string/word_to_translate"
-		    android:layout_gravity="left"
-		    android:padding="7dip"
-		    android:textSize="25sp"
+		    style="@style/word_to_translate"
 		 	/>
 		 <TextView  
 			android:id="@+id/false_label"
 		    android:layout_width="fill_parent" 
 		    android:layout_height="wrap_content" 
 		    android:text="@string/false_label"
-		    android:padding="10dip"
-		    android:layout_gravity="center"
-		    android:textSize="15sp"
-		    android:textColor="@color/red"
-		    style="@style/bold"
+		    style="@style/error"
 			/>
-
 		<LinearLayout
 		  	android:orientation="horizontal"
 		    android:layout_width="fill_parent"

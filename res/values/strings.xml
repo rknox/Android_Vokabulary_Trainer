@@ -2,15 +2,13 @@
 <resources>
 
 	<!-- WELCOME_SCREEN -->
-    <string name="app_name">Vocabulary Trainer</string>
+    <string name="app_name">Vocabulary Trainer 0.2</string>
     <string name="welcome_title">Willkommen</string>
     <string name="options_label">Options</string>
     <string name="new_game_label">Start</string>
     <string name="about_label">About</string>
     <string name="exit_label">Exit</string>
     
-    
-   
     <string name="about_title">About Vocabulary Trainer</string>
     
     <string name="about_text">
@@ -19,7 +17,7 @@
     	memorize english vocabulary in a fun way. 
     </string>
     
-    <string name="trainer_label">What a fun way to learn languages</string>
+    <string name="trainer_label">Vocabulary Trainer 0.2</string>
     <string name="word_to_translate"></string>
     <string name="answer_1_label"></string>
     <string name="answer_2_label"></string>

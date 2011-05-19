@@ -20,7 +20,8 @@ public class Trainer extends Activity implements OnClickListener {
 	private Button answerButton1, answerButton2, answerButton3, answerButton4,
 			stopButton;
 	private Vocable random;
-
+	private int language;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -53,15 +54,19 @@ public class Trainer extends Activity implements OnClickListener {
 		Button[] answerButtons = { answerButton1, answerButton2, answerButton3,
 				answerButton4 };
 		random = vocables.get((int) (Math.random() * vocables.size()));
-		text.setText(random.getEnglish());
+		language = (int) (Math.random()*2);
 		int randomButton = (int) (Math.random() * 4);
-		for (int i = 0; i <= 3; i++) {
+		if(language==1){text.setText(random.getEnglish());}
+		else{text.setText(random.getGerman());}
+		for (int i = 0; i <= 3; i++){
 			if (i == randomButton) {
-				answerButtons[i].setText(random.getGerman());
+				if(language==1){answerButtons[i].setText(random.getGerman());}
+				else{answerButtons[i].setText(random.getEnglish());}
+				
 			} else {
 				int randomNumber = (int) (Math.random() * vocables.size());
-				answerButtons[i]
-						.setText(vocables.get(randomNumber).getGerman());
+				if(language==1){answerButtons[i].setText(vocables.get(randomNumber).getGerman());}
+				else{answerButtons[i].setText(vocables.get(randomNumber).getEnglish());}
 			}
 		}
 		Log.d(TAG, "UI-text initialized...");
@@ -96,7 +101,7 @@ public class Trainer extends Activity implements OnClickListener {
 				answerButton4 };
 		Log.d(TAG, "Checking answer..." + vocable.getGerman() + " - "
 				+ answerButtons[i].getText());
-		if (vocable.getGerman().equals(answerButtons[i].getText())) {
+		if ((vocable.getGerman().equals(answerButtons[i].getText()) || (vocable.getEnglish().equals(answerButtons[i].getText())))) {
 			vocable.increaseGuessed(vocable, this);
 			initText();
 			errorLabel.setText("");
@@ -105,5 +110,4 @@ public class Trainer extends Activity implements OnClickListener {
 			vocable.resetGuessed(vocable, this);
 		}
 	}
-
 }

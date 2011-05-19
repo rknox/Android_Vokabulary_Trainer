@@ -83,8 +83,9 @@ public final class R {
         public static final int write_xml=0x7f050015;
     }
     public static final class style {
-        public static final int bold=0x7f060000;
-        public static final int buttonStyle=0x7f060001;
-        public static final int ingameButton=0x7f060002;
+        public static final int buttonStyle=0x7f060002;
+        public static final int error=0x7f060000;
+        public static final int ingameButton=0x7f060003;
+        public static final int word_to_translate=0x7f060001;
     }
 }

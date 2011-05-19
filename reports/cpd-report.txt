@@ -1,60 +1,138 @@
-Found a 3 line (22 tokens) duplication in the following files: 
-Starting at line 152 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
-Starting at line 159 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
+Found a 11 line (94 tokens) duplication in the following files: 
+Starting at line 60 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\TrainerData.java
+Starting at line 81 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\DOAHelper.java
 
-		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY + " = 0 WHERE " + _ID + " = " + vocable.getId() + ";" ;
-		db.execSQL(sql);
-		vocable.setGuessed(0);
+		try {
+			Log.d(TAG, "Try updating from XML file");	
+			Document doc = XMLHandler.getXMLFile(path);
+			Element root = doc.getRootElement();
+			String german = "";
+			String english = "";
+			for (Iterator<Element> i = root.elementIterator("vocable"); i.hasNext();) {
+				Element e = i.next();
+				for (Iterator<Element> j = e.elementIterator(); j.hasNext();) {
+					Element element = j.next();
+					if (!vocables.contains(element)) {
 =====================================================================
-Found a 4 line (22 tokens) duplication in the following files: 
-Starting at line 11 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\VocabularyTrainer.java
-Starting at line 27 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Trainer.java
+Found a 12 line (81 tokens) duplication in the following files: 
+Starting at line 127 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
+Starting at line 136 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\DOAHelper.java
 
+		return list;
+	}
+	
+	public static List<Vocable> checkListSize(List<Vocable> list) {
+		if (list.size() < 1) {
+			list.add(new Vocable("done", "done"));
+			list.add(new Vocable("done", "done"));
+			list.add(new Vocable("done", "done"));
+			list.add(new Vocable("done", "done"));
+		}
+		return list;
+	}
+=====================================================================
+Found a 15 line (68 tokens) duplication in the following files: 
+Starting at line 35 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\TrainerData.java
+Starting at line 25 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\SQLiteConnectionFactory.java
+
+	public SQLiteConnectionFactory(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.trainer);
-=====================================================================
-Found a 3 line (19 tokens) duplication in the following files: 
-Starting at line 12 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\VocabularyTrainer.java
-Starting at line 9 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\About.java
-
-	protected void onCreate(Bundle savedInstanceState){
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.about);
-=====================================================================
-Found a 2 line (18 tokens) duplication in the following files: 
-Starting at line 151 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
-Starting at line 158 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
-
-		SQLiteDatabase db = getWritableDatabaseInstance(context);
-		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY + " = 0 WHERE " + _ID + " = " + vocable.getId() + ";" ;
-=====================================================================
-Found a 9 line (17 tokens) duplication in the following files: 
-Starting at line 47 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
-Starting at line 60 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
-
-		this.german = german;
-		this.english = english;
-		this.guessed = guessed;
+	public void onCreate(SQLiteDatabase db) {
+		db.execSQL(createTabel);
+		Log.d(TAG, "CALL INITIALISING DATABASE");
 	}
 
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		db.execSQL(dropTable);
+		onCreate(db);
+	}
+=====================================================================
+Found a 8 line (66 tokens) duplication in the following files: 
+Starting at line 114 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
+Starting at line 126 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\DOAHelper.java
+
+					+ MAX_GUESSED_CONS, null, null, null, null);
+			startManagingCursor(cursor);
+
+			while (cursor.moveToNext()) {
+				list.add(new Vocable(cursor.getInt(0), cursor.getString(1),
+						cursor.getString(2), cursor.getInt(3)));
+				Log.d(TAG, "Added Vocable to list: " + cursor.getInt(0));
+			}
+=====================================================================
+Found a 7 line (45 tokens) duplication in the following files: 
+Starting at line 71 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\TrainerData.java
+Starting at line 92 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\DOAHelper.java
+
+						if (element.getName().equals("german")) {
+							german = element.getText();
+						}
+						if (element.getName().equals("english")) {
+							english = element.getText();
+						}
+					}
+=====================================================================
+Found a 9 line (44 tokens) duplication in the following files: 
+Starting at line 27 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\TrainerData.java
+Starting at line 17 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\SQLiteConnectionFactory.java
+
+	private static final String DATABASE_NAME = "vocabulary_trainer.db";
+	private static final String createTabel = "CREATE TABLE " + TABLE_NAME
+			+ " (" + _ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + GERMAN
+			+ " TEXT NOT NULL, " + ENGLISH + " TEXT NOT NULL, "
+			+ GUESSED_CONSECUTIVELY + " INTEGER);";
+	private static final String dropTable = "DROP TABLE IF EXISTS "
+			+ TABLE_NAME;
+
+	public SQLiteConnectionFactory(Context context) {
+=====================================================================
+Found a 20 line (42 tokens) duplication in the following files: 
+Starting at line 86 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\TrainerData.java
+Starting at line 103 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\DOAHelper.java
+
+				persistValues(context, values);
+				Log.d(TAG, german + "---" + english);
+				rowCount++;
+			}
+
+		} catch (DocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Log.d(TAG, "Updated Database");
+		return rowCount;
+	}
+	
 	/**
-	 * @return the german
+	 * Returns all Vocables
+	 * @param context
+	 * @return
 	 */
-	public String getGerman() {
+	public List<Vocable> getVocables(String[] from) {
 =====================================================================
-Found a 1 line (16 tokens) duplication in the following files: 
-Starting at line 55 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Trainer.java
-Starting at line 64 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Trainer.java
+Found a 8 line (38 tokens) duplication in the following files: 
+Starting at line 21 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\XMLHandler.java
+Starting at line 9 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\dao\XMLHandler.java
 
-				int randomNumber = (int) (Math.random() * vocables.size());
+public class XMLHandler {
+
+	public static Document getXMLFile(String filename) throws DocumentException{
+		SAXReader reader = new SAXReader();
+		Document doc = reader.read(new File(filename));
+		
+		return doc;
+	}
 =====================================================================
-Found a 4 line (16 tokens) duplication in the following files: 
-Starting at line 35 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
-Starting at line 46 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
+Found a 4 line (27 tokens) duplication in the following files: 
+Starting at line 146 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
+Starting at line 156 of D:\Forschung&Entwicklung\projects\vocabularyTrainer\src\knox\ravi\Vocable.java
 
-	public Vocable(String german, String english, int guessed) {
-		this.german = german;
-		this.english = english;
-		this.guessed = guessed;
+				+ " = 0 WHERE " + _ID + " = " + vocable.getId() + ";";
+		db.execSQL(sql);
+		db.close();
+		vocable.setGuessed(0);

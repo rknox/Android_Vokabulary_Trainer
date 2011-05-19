@@ -6,6 +6,7 @@ import static knox.ravi.Constants.GERMAN;
 import static knox.ravi.Constants.GUESSED_CONSECUTIVELY;
 import static knox.ravi.Constants.TABLE_NAME;
 import static knox.ravi.Constants.TAG;
+import static knox.ravi.Constants.XML_FILE_NAME;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,6 +20,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Environment;
 import android.util.Log;
 
 public class TrainerData extends SQLiteOpenHelper{
@@ -127,9 +129,9 @@ public class TrainerData extends SQLiteOpenHelper{
 	}
 
 	public static void writeXML() {
-		//TODO create static getVocables() method?
 		List<Vocable> vocables = new Vocable().getVocables(VocabularyTrainer.getContext(), false);
-		new XMLHandler().writeList(vocables);
+		String path = Environment.getExternalStorageDirectory()+ "/dropbox/" + XML_FILE_NAME;
+		new XMLHandler().writeList(vocables, path);
 	}
 
 	//TODO Improve performance, watch out for ConcurrentModificationException
