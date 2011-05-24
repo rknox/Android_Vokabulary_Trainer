@@ -1,5 +1,6 @@
 package knox.ravi;
 
+import dao.DOAHelper;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +20,7 @@ public class ConfirmDbReset extends Activity implements OnClickListener{
 	}
 
 	public void onClick(View v) {
-		if(v.getId() == R.id.confirm_yes){TrainerData.resetDb(this);super.onBackPressed();}
+		if(v.getId() == R.id.confirm_yes){new DOAHelper(VocabularyTrainer.getContext()).resetDb();super.onBackPressed();}
 		else if (v.getId() == R.id.confirm_no) {super.onBackPressed();}		
 	}
 

@@ -14,8 +14,8 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import dao.DOAHelper;
 
 public class Vocable extends Activity {
 
@@ -96,34 +96,26 @@ public class Vocable extends Activity {
 		this.guessed = guessed;
 	}
 
-
-
 	/**
-	 * Returns all Vocables
+	 * Returns a list of vocables
+	 * 
 	 * @param context
 	 * @return
 	 */
 	public List<Vocable> getVocables(Context context, boolean withPlaceholder) {
 		List<Vocable> list = new ArrayList<Vocable>();
-		Cursor cursor = null;
-		TrainerData data = new TrainerData(context);
-		SQLiteDatabase db = data.getReadableDatabase();
-		try {
-			
-			cursor = db.query(TABLE_NAME, FROM, GUESSED_CONSECUTIVELY + " < "
-					+ MAX_GUESSED_CONS, null, null, null, "german");
-			startManagingCursor(cursor);
-
-			while (cursor.moveToNext()) {
-				list.add(new Vocable(cursor.getInt(0), cursor.getString(1),
-						cursor.getString(2), cursor.getInt(3)));
-				Log.d(TAG, "Added Vocable to list: " + cursor.getInt(0));
-			}
-		} finally {
-			cursor.close();
-			db.close();
+		Cursor cursor = new DOAHelper(context).getReadableDatabase().query(TABLE_NAME,
+				FROM, GUESSED_CONSECUTIVELY + " < " + MAX_GUESSED_CONS, null,
+				null, null, "german");
+		startManagingCursor(cursor);
+		while (cursor.moveToNext()) {
+			list.add(new Vocable(cursor.getInt(0), cursor.getString(1), cursor
+					.getString(2), cursor.getInt(3)));
+			Log.d(TAG, "Added Vocable to list: " + cursor.getInt(0));
 		}
-		if(withPlaceholder){list = checkListSize(list);}
+		if (withPlaceholder) {
+			list = checkListSize(list);
+		}
 		return list;
 	}
 
@@ -137,25 +129,23 @@ public class Vocable extends Activity {
 		return list;
 	}
 
-	// TODO Execute proper db.update() method that comes with SQLitehelper combine with Trainerdata.resetAllGuessed?!
+	// TODO Execute proper db.update() method that comes with SQLitehelper
+	// combine with Trainerdata.resetAllGuessed?!
 	public void increaseGuessed(Vocable vocable, Context context) {
 		int guessed = vocable.getGuessed();
 		guessed++;
-		SQLiteDatabase db = TrainerData.getWritableDatabaseInstance(context);
 		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY
 				+ " = " + guessed + " WHERE " + _ID + " = " + vocable.getId()
 				+ ";";
-		db.execSQL(sql);
-		db.close();
+		new DOAHelper(context).getWritableDatabase().execSQL(sql);
 		vocable.setGuessed(guessed);
 	}
+
 	// TODO Execute proper db.update() method that comes with SQLitehelper
 	public void resetGuessed(Vocable vocable, Context context) {
-		SQLiteDatabase db = TrainerData.getWritableDatabaseInstance(context);
 		String sql = "UPDATE " + TABLE_NAME + " SET " + GUESSED_CONSECUTIVELY
 				+ " = 0 WHERE " + _ID + " = " + vocable.getId() + ";";
-		db.execSQL(sql);
-		db.close();
+		new DOAHelper(context).getWritableDatabase().execSQL(sql);
 		vocable.setGuessed(0);
 		Log.d(TAG, "Reseted guessed for : " + vocable.getGerman());
 	}

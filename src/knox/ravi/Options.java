@@ -1,5 +1,7 @@
 package knox.ravi;
 
+import dao.DOAHelper;
+import dao.XMLHandler;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,7 +36,7 @@ public class Options extends Activity implements OnClickListener {
 			startActivityForResult(intent, 0);
 			break;
 		case R.id.reset_guessed_button:
-			TrainerData.resetAllGuessed(this);
+			new DOAHelper(VocabularyTrainer.getContext()).resetAllGuessed();
 			Tools.showToast(this, "All reseted...");
 			break;
 		case R.id.reset_db:
@@ -45,7 +47,7 @@ public class Options extends Activity implements OnClickListener {
 			startActivity(intent);
 			break;
 		case R.id.write_xml:
-			TrainerData.writeXML();
+			XMLHandler.writeXML();
 			break;
 		}
 	}
@@ -56,9 +58,10 @@ public class Options extends Activity implements OnClickListener {
 		if (data != null) {
 			Bundle bundle = data.getExtras();
 			String pathToXML = bundle.getString("path");
-			int rows = new TrainerData(this).updateDb(pathToXML);
+			int rows = new DOAHelper(VocabularyTrainer.getContext()).updateDb(pathToXML);
 			String notify = "Inserted " + rows + " new vocabularies";
 			Tools.showToast(this, notify);
+			startActivity(new Intent(this, VocabularyTrainer.class));
 		}
 	}
 

@@ -31,13 +31,13 @@ public class FileChooser extends ListActivity {
          List<Option>dir = new ArrayList<Option>();
          List<Option>fls = new ArrayList<Option>();
          try{
-             for(File ff: dirs)
+             for(File file: dirs)
              {
-                if(ff.isDirectory())
-                    dir.add(new Option(ff.getName(),"Folder",ff.getAbsolutePath()));
+                if(file.isDirectory())
+                    dir.add(new Option(file.getName(),"Folder",file.getAbsolutePath()));
                 else
                 {
-                    fls.add(new Option(ff.getName(),"File Size: "+ff.length(),ff.getAbsolutePath()));
+                    fls.add(new Option(file.getName(),"File Size: "+file.length(),file.getAbsolutePath()));
                 }
              }
          }catch(Exception e)

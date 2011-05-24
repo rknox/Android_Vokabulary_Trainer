@@ -9,13 +9,13 @@ import android.view.View.OnClickListener;
 
 public class VocabularyTrainer extends Activity implements OnClickListener {
 	
-	private static Context instance;
+	private static Context context;
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		instance = getApplicationContext();
+		context = getApplicationContext();
 		View continueButtion = findViewById(R.id.options_button);
 		continueButtion.setOnClickListener(this);
 		View startNewGameButton = findViewById(R.id.new_game_button);
@@ -48,6 +48,7 @@ public class VocabularyTrainer extends Activity implements OnClickListener {
 	}
 	
 	public static Context getContext(){
-		return instance;
+		return context;
+		
 	}
 }
