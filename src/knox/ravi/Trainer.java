@@ -1,8 +1,11 @@
 package knox.ravi;
 
 import java.util.List;
+
+import dao.DOAHelper;
 import static knox.ravi.Constants.MAX_GUESSED_CONS;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -50,6 +53,8 @@ public class Trainer extends Activity implements OnClickListener {
 	 * Set Text on TextView and Buttons
 	 */
 	private void initText() {
+		String translateFrom = "";
+		String tranlsateTo = "";
 		Log.d(TAG, "Initializing UI-text");
 		Button[] answerButtons = { answerButton1, answerButton2, answerButton3,
 				answerButton4 };
@@ -58,31 +63,45 @@ public class Trainer extends Activity implements OnClickListener {
 		int randomButton = (int) (Math.random() * 4);
 		if (language == 1) {
 			text.setText(random.getEnglish());
+			translateFrom = random.getEnglish();
+			tranlsateTo = random.getGerman();
 		} else {
 			text.setText(random.getGerman());
+			translateFrom = random.getGerman();
+			tranlsateTo = random.getEnglish();
 		}
-		for (int i = 0; i <= 3; i++) {
-			if (i == randomButton) {
-				if (language == 1) {
-					answerButtons[i].setText(random.getGerman());
-				} else {
-					answerButtons[i].setText(random.getEnglish());
-				}
+		// check if Vocable reached 2/3 of MAX_GUESSED. If yes User should type the translation
+		if ((random.getGuessed() > MAX_GUESSED_CONS * 0.6) && (vocables.size() > 1)) {
+			Log.d(TAG, "IN MAX_GUESSED * 0.6");
+			Intent intent = new Intent(VocabularyTrainer.getContext(), InputDialog.class);
+			Bundle bundle = new Bundle();
+			bundle.putString("native", translateFrom);
+			bundle.putString("translation", tranlsateTo);
+			intent.putExtras(bundle);
+			startActivityForResult(intent, 0);
+		} else {
+			for (int i = 0; i <= 3; i++) {
+				if (i == randomButton) {
+					if (language == 1) {
+						answerButtons[i].setText(random.getGerman());
+					} else {
+						answerButtons[i].setText(random.getEnglish());
+					}
 
-			} else {
-				int randomNumber = (int) (Math.random() * vocables.size());
-				if (language == 1) {
-					answerButtons[i].setText(vocables.get(randomNumber)
-							.getGerman());
 				} else {
-					answerButtons[i].setText(vocables.get(randomNumber)
-							.getEnglish());
+					int randomNumber = (int) (Math.random() * vocables.size());
+					if (language == 1) {
+						answerButtons[i].setText(vocables.get(randomNumber)
+								.getGerman());
+					} else {
+						answerButtons[i].setText(vocables.get(randomNumber)
+								.getEnglish());
+					}
 				}
 			}
 		}
 		Log.d(TAG, "UI-text initialized...");
 	}
-
 
 	public void onClick(View v) {
 		switch (v.getId()) {
@@ -121,6 +140,24 @@ public class Trainer extends Activity implements OnClickListener {
 		} else {
 			errorLabel.setText("Wrong");
 			vocable.resetGuessed(vocable, this);
+		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if(vocables.size()<1){
+			initText();
+		}
+		if (data != null) {
+			Bundle bundle = data.getExtras();
+			if(bundle.getBoolean("result")){
+				random.increaseGuessed(random, this);
+				Log.i(TAG, "TYPED RIGHT!!!");
+			}else{
+				Tools.showToast(this, "Wrong...");
+			}
+			initText();
 		}
 	}
 }

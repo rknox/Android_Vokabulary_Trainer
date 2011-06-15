@@ -13,5 +13,5 @@ public interface Constants extends BaseColumns {
 	
 	public static final String TAG = "VocableTrainer";
 	
-	public static final int MAX_GUESSED_CONS = 15;
+	public static final int MAX_GUESSED_CONS = 3;
 }
