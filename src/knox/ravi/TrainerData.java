@@ -16,6 +16,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 
+import dao.XMLHandler;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -131,7 +133,7 @@ public class TrainerData extends SQLiteOpenHelper{
 	public static void writeXML() {
 		List<Vocable> vocables = new Vocable().getVocables(VocabularyTrainer.getContext(), false);
 		String path = Environment.getExternalStorageDirectory()+ "/dropbox/" + XML_FILE_NAME;
-		new XMLHandler().writeList(vocables, path);
+		XMLHandler.writeList(vocables, path);
 	}
 
 	//TODO Improve performance, watch out for ConcurrentModificationException
